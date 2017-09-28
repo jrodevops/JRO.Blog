@@ -1,0 +1,148 @@
+﻿@using JRO.Blog.Models
+@model IEnumerable<Post>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2></h2>
+@Html.ActionLink("New post", "New", "Posts", null, new { @class="btn btn-primary"})
+
+<!-- Modal - Post Edit -->
+<div class="modal fade" id="modalPostEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Post details</h4>
+
+                </div>
+                <div class="modal-body" id="postEdit"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal - Post Details -->
+<div class="modal fade" id="modalPostDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Post details</h4>
+
+                </div>
+                <div class="modal-body" id="postDetails"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Date updated</th>
+            <th>Date created</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Post post in @Model)
+        {
+            <tr>
+                <td>@post.Title</td>
+                <td>
+                    @if (@post.Author != null)
+                    {
+                        @post.Author.Fullname
+                    }
+                </td>
+                <td>
+                    @if (@post.DateUpdated.HasValue)
+                    {
+                        @post.DateUpdated.Value.ToShortDateString() @post.DateUpdated.Value.ToLongTimeString()
+                    }
+                </td>
+                <td>@post.DateCreated.ToShortDateString() @post.DateCreated.ToLongTimeString()</td>
+                <td>
+                    <button id='projectdetails' class='btn-link js-delete' data-project-id=" + data + "><img src='../Content/Images/delete16.png' height='16px' width='16px' /></button> 
+                    <button onclick="openPostEdit(@post.Id)" class='btn-link js-edit' data-project-id=" + data + "><img src='~/Content/Images/edit16.png' /></button> 
+                    <button onclick="openPostDetails(@post.Id)" data-toggle='modal' data-target='#modalPostDetails' class='btn-link js-details' data-project-id=" + data + "><img src='../Content/Images/details16.png' height='16px' width='16px' /></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        function openPostDetails(clicked_id) {
+        var url = '@Url.Action("Details", "Posts")'
+        url += "/" + clicked_id
+
+        $('#postDetails').load(url, { id: clicked_id });
+        }
+
+        function openPostEdit(clicked_id) {
+            var url = '@Url.Action("Edit", "Posts")'
+            url += "/" + clicked_id
+            window.location.href = url;  
+        }
+
+
+        // Get the modal    
+        var modal = document.getElementById('myModal');
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        $(".header").click(function () {
+            $header = $(this);
+            //getting the next element
+            $content = $header.next();
+            //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+            $content.slideToggle(500, function () {
+                //execute this after slideToggle is done
+                //change text of header based on visibility of content div
+                $header.text(function () {
+                    //change text based on condition
+                    return $content.is(":visible") ? "Collapse" : "Expand";
+                });
+            });
+        });
+    </script>    
+}

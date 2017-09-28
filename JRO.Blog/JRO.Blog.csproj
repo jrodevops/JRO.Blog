@@ -192,18 +192,46 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709271023583_InitialMigration-UpdatedUsermodel.cs" />
+    <Compile Include="Migrations\201709271023583_InitialMigration-UpdatedUsermodel.Designer.cs">
+      <DependentUpon>201709271023583_InitialMigration-UpdatedUsermodel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709271116407_CreatedPostsModel.cs" />
+    <Compile Include="Migrations\201709271116407_CreatedPostsModel.Designer.cs">
+      <DependentUpon>201709271116407_CreatedPostsModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709271121526_UpdatePostModelWithAnnotations.cs" />
+    <Compile Include="Migrations\201709271121526_UpdatePostModelWithAnnotations.Designer.cs">
+      <DependentUpon>201709271121526_UpdatePostModelWithAnnotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709271223551_ChangedDateUpdateToDateUpdatedPostModel.cs" />
+    <Compile Include="Migrations\201709271223551_ChangedDateUpdateToDateUpdatedPostModel.Designer.cs">
+      <DependentUpon>201709271223551_ChangedDateUpdateToDateUpdatedPostModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\PostFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\delete16.png" />
+    <Content Include="Content\Images\details16.png" />
+    <Content Include="Content\Images\edit16.png" />
+    <Content Include="Content\Images\link16.png" />
+    <Content Include="Content\Images\user16.png" />
+    <Content Include="Content\jro.devops.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -213,7 +241,64 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\summernote\font\summernote.eot" />
+    <Content Include="Scripts\summernote\font\summernote.ttf" />
+    <Content Include="Scripts\summernote\font\summernote.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\summernote\lang\summernote-ar-AR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-bg-BG.js" />
+    <Content Include="Scripts\summernote\lang\summernote-ca-ES.js" />
+    <Content Include="Scripts\summernote\lang\summernote-cs-CZ.js" />
+    <Content Include="Scripts\summernote\lang\summernote-da-DK.js" />
+    <Content Include="Scripts\summernote\lang\summernote-de-DE.js" />
+    <Content Include="Scripts\summernote\lang\summernote-el-GR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-es-ES.js" />
+    <Content Include="Scripts\summernote\lang\summernote-es-EU.js" />
+    <Content Include="Scripts\summernote\lang\summernote-fa-IR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-fi-FI.js" />
+    <Content Include="Scripts\summernote\lang\summernote-fr-FR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-gl-ES.js" />
+    <Content Include="Scripts\summernote\lang\summernote-he-IL.js" />
+    <Content Include="Scripts\summernote\lang\summernote-hr-HR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-hu-HU.js" />
+    <Content Include="Scripts\summernote\lang\summernote-id-ID.js" />
+    <Content Include="Scripts\summernote\lang\summernote-it-IT.js" />
+    <Content Include="Scripts\summernote\lang\summernote-ja-JP.js" />
+    <Content Include="Scripts\summernote\lang\summernote-ko-KR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-lt-LT.js" />
+    <Content Include="Scripts\summernote\lang\summernote-lt-LV.js" />
+    <Content Include="Scripts\summernote\lang\summernote-mn-MN.js" />
+    <Content Include="Scripts\summernote\lang\summernote-nb-NO.js" />
+    <Content Include="Scripts\summernote\lang\summernote-nl-NL.js" />
+    <Content Include="Scripts\summernote\lang\summernote-pl-PL.js" />
+    <Content Include="Scripts\summernote\lang\summernote-pt-BR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-pt-PT.js" />
+    <Content Include="Scripts\summernote\lang\summernote-ro-RO.js" />
+    <Content Include="Scripts\summernote\lang\summernote-ru-RU.js" />
+    <Content Include="Scripts\summernote\lang\summernote-sk-SK.js" />
+    <Content Include="Scripts\summernote\lang\summernote-sl-SI.js" />
+    <Content Include="Scripts\summernote\lang\summernote-sr-RS-Latin.js" />
+    <Content Include="Scripts\summernote\lang\summernote-sr-RS.js" />
+    <Content Include="Scripts\summernote\lang\summernote-sv-SE.js" />
+    <Content Include="Scripts\summernote\lang\summernote-ta-IN.js" />
+    <Content Include="Scripts\summernote\lang\summernote-th-TH.js" />
+    <Content Include="Scripts\summernote\lang\summernote-tr-TR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-uk-UA.js" />
+    <Content Include="Scripts\summernote\lang\summernote-vi-VN.js" />
+    <Content Include="Scripts\summernote\lang\summernote-zh-CN.js" />
+    <Content Include="Scripts\summernote\lang\summernote-zh-TW.js" />
+    <Content Include="Scripts\summernote\plugin\databasic\summernote-ext-databasic.css" />
+    <Content Include="Scripts\summernote\plugin\databasic\summernote-ext-databasic.js" />
+    <Content Include="Scripts\summernote\plugin\hello\summernote-ext-hello.js" />
+    <Content Include="Scripts\summernote\plugin\specialchars\summernote-ext-specialchars.js" />
+    <Content Include="Scripts\summernote\summernote-bs4.css" />
+    <Content Include="Scripts\summernote\summernote-bs4.js" />
+    <Content Include="Scripts\summernote\summernote-bs4.min.js" />
+    <Content Include="Scripts\summernote\summernote-lite.css" />
+    <Content Include="Scripts\summernote\summernote-lite.js" />
+    <Content Include="Scripts\summernote\summernote.css" />
+    <Content Include="Scripts\summernote\summernote.js" />
+    <Content Include="Scripts\summernote\summernote.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -258,6 +343,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Posts\PostFormView.cshtml" />
+    <Content Include="Views\Posts\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -274,6 +363,20 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201709271023583_InitialMigration-UpdatedUsermodel.resx">
+      <DependentUpon>201709271023583_InitialMigration-UpdatedUsermodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709271116407_CreatedPostsModel.resx">
+      <DependentUpon>201709271116407_CreatedPostsModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709271121526_UpdatePostModelWithAnnotations.resx">
+      <DependentUpon>201709271121526_UpdatePostModelWithAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709271223551_ChangedDateUpdateToDateUpdatedPostModel.resx">
+      <DependentUpon>201709271223551_ChangedDateUpdateToDateUpdatedPostModel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
