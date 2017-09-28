@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.ViewTitle</h2>
+<h2></h2>
 
 <div class="panel panel-primary">
-    <div class="panel-heading panel-head">Add post</div>
+    <div class="panel-heading panel-head">@Model.ViewTitle</div>
     <div class="panel-body">
         @using (Html.BeginForm("Save", "Posts"))
         {

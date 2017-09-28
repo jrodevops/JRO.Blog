@@ -1,4 +1,5 @@
-﻿<div class="navbar navbar-inverse navbar-fixed-top">
+﻿@using JRO.Blog.Models
+<div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -12,6 +13,10 @@
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
                 <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
+                @if (User.IsInRole(RoleName.Admin))
+                {
+                    <li>@Html.ActionLink("Role Manager", "Index", "Roles")</li>
+                }
             </ul>
             @Html.Partial("_LoginPartial")
         </div>

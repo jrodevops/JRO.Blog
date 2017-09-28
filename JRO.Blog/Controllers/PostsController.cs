@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace JRO.Blog.Controllers
 {
+    [Authorize(Roles = RoleName.CanManagePosts)]
     public class PostsController : Controller
     {
         ApplicationDbContext _context { get; set; }
